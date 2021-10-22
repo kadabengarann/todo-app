@@ -83,14 +83,25 @@ function findTodoIndex(todoId) {
   }
   return -1;
 }
-function refreshDataFromTodos() {
+function refreshDataFromTodos(filter) {
   const containerTODOList = document.getElementById(LIST_TODO_ID);
-
+  while (containerTODOList.firstChild) {
+    containerTODOList.removeChild(containerTODOList.lastChild);
+  }
+  let newTodo;
   for (todo of todos) {
-    const newTodo = makeTodo(todo.nameTodo, todo.isCompleted);
-    newTodo[TODO_ITEMID] = todo.id;
-
-    containerTODOList.append(newTodo);
+    if (filter == "all") {
+      newTodo = makeTodo(todo.nameTodo, todo.isCompleted);
+      newTodo[TODO_ITEMID] = todo.id;
+      containerTODOList.append(newTodo);
+    } else {
+      console.log(filter);
+      if (todo.isCompleted.toString() == filter) {
+        newTodo = makeTodo(todo.nameTodo, todo.isCompleted);
+        newTodo[TODO_ITEMID] = todo.id;
+        containerTODOList.append(newTodo);
+      }
+    }
   }
   fillUserData();
 }

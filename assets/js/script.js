@@ -1,6 +1,10 @@
-const todoInput = document.getElementById("todo-input");
+let filter = "all";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const todoInput = document.getElementById("todo-input");
+  const todoClear = document.getElementById("clear-completed");
+  const todoFilters = document.querySelectorAll("input[name='filter']");
+
   todoInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       if (e.target.value !== "") {
@@ -9,7 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
+  todoFilters.forEach((filter) => {
+    filter.addEventListener("change", filterCallback);
+  });
 
+  todoClear.addEventListener("click", function (event) {
+    console.log("hai");
+    deleteAllComplete();
+  });
   if (isStorageExist()) {
     loadDataFromStorage();
     loadUserData();
@@ -30,7 +41,7 @@ document.addEventListener("ondatasaved", () => {
   fillUserData();
 });
 document.addEventListener("ondataloaded", () => {
-  refreshDataFromTodos();
+  refreshDataFromTodos(filter);
   loadUserData();
   fillUserData();
 });

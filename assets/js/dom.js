@@ -2,6 +2,11 @@ const LIST_TODO_ID = "todo-container";
 
 const TODO_ITEMID = "itemId";
 
+function filterCallback(e) {
+  //update the current Filter and calls fonction that takes care of filters
+  filter = e.target.value;
+  refreshDataFromTodos(filter);
+}
 function fillUserData() {
   console.log(user);
   const incompleted_todos = document.getElementById("items-left");
@@ -73,7 +78,34 @@ function removeTodo(todoElement) {
 
   updateDataToStorage();
 }
+function clearAllData() {
+  const containerTODOList = document.getElementById(LIST_TODO_ID);
+  const CompletedItems = containerTODOList.querySelectorAll(".checked");
+  if (CompletedItems) {
+    for (const item of CompletedItems) {
+      console.log(item);
+      item.remove();
+    }
+  }
+}
+function deleteAllComplete() {
+  let listLength = 0;
 
+  for (let i = todos.length - 1; i >= 0; i--) {
+    if (todos[i].isCompleted === true) {
+      todos.splice(i, 1);
+      listLength++;
+    }
+  }
+
+  if (listLength > 0) {
+    user.completedBooks = 0;
+    updateDataToStorage();
+    clearAllData();
+
+    // refreshDataFromTodos();
+  }
+}
 function createButton(icon_name, class1, class2, eventListener) {
   const button = document.createElement("buton");
   button.className += class1 + class2;
