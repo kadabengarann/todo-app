@@ -2,6 +2,31 @@ const LIST_TODO_ID = "todo-container";
 
 const TODO_ITEMID = "itemId";
 
+const darkModeToggle = document.querySelector("#theme-toggle");
+
+const enableDarkMode = () => {
+  // 1. Add the class to the body
+  document.body.classList.add("darkmode");
+  // console.log(darkModeToggle.firstElementChild);
+  darkModeToggle.firstElementChild.src = "./assets/img/icon-moon.svg";
+  // .src="newSource.png";
+  // 2. Update darkMode in localStorage
+  localStorage.setItem("darkMode", "enabled");
+};
+
+const disableDarkMode = () => {
+  // 1. Remove the class from the body
+  document.body.classList.remove("darkmode");
+  darkModeToggle.firstElementChild.src = "./assets/img/icon-sun.svg";
+
+  // 2. Update darkMode in localStorage
+  localStorage.setItem("darkMode", null);
+};
+
+if (darkMode === "enabled") {
+  enableDarkMode();
+}
+
 function filterCallback(e) {
   //update the current Filter and calls fonction that takes care of filters
   filter = e.target.value;

@@ -21,6 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("hai");
     deleteAllComplete();
   });
+
+  darkModeToggle.addEventListener("click", () => {
+    // get their darkMode setting
+    darkMode = localStorage.getItem("darkMode");
+
+    // if it not current enabled, enable it
+    if (darkMode !== "enabled") {
+      enableDarkMode();
+      // if it has been enabled, turn it off
+    } else {
+      disableDarkMode();
+    }
+  });
+
   if (isStorageExist()) {
     loadDataFromStorage();
     loadUserData();

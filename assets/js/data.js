@@ -6,6 +6,7 @@ let user = {
   completedTodos: 0,
   incompletedTodos: 0,
 };
+let darkMode = localStorage.getItem("darkMode");
 
 function isStorageExist() {
   if (typeof Storage === undefined) {
