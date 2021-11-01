@@ -21,20 +21,7 @@
   --deskBackground: url("../img/bg-desktop-light.jpg");
   --mobileBackground: url("../img/bg-mobile-light.jpg");
 }
-@font-face {
-  font-family: "Suisse Int'l";
-  src: url("//db.onlinewebfonts.com/t/13ab13418f633c1b0516fed6e30bedbc.eot");
-  src: url("//db.onlinewebfonts.com/t/13ab13418f633c1b0516fed6e30bedbc.eot?#iefix")
-      format("embedded-opentype"),
-    url("//db.onlinewebfonts.com/t/13ab13418f633c1b0516fed6e30bedbc.svg#Suisse Int'l")
-      format("svg");
-}
-
-@font-face {
-  font-family: "Suisse Intl Light";
-  src: url("https://d33wubrfki0l68.cloudfront.net/87565495e16c505216fe3004e633b4b87f3a5c05/0cff4/static/media/suisseintl-light.9be8b893.ttf");
-}
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"); */
 html {
   scroll-behavior: smooth;
   font-size: 62.5%;
