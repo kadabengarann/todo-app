@@ -5,21 +5,15 @@ const TODO_ITEMID = "itemId";
 const darkModeToggle = document.querySelector("#theme-toggle");
 
 const enableDarkMode = () => {
-  // 1. Add the class to the body
   document.body.classList.add("darkmode");
-  // console.log(darkModeToggle.firstElementChild);
   darkModeToggle.firstElementChild.src = "./assets/img/icon-moon.svg";
-  // .src="newSource.png";
-  // 2. Update darkMode in localStorage
   localStorage.setItem("darkMode", "enabled");
 };
 
 const disableDarkMode = () => {
-  // 1. Remove the class from the body
   document.body.classList.remove("darkmode");
   darkModeToggle.firstElementChild.src = "./assets/img/icon-sun.svg";
 
-  // 2. Update darkMode in localStorage
   localStorage.setItem("darkMode", null);
 };
 
@@ -33,7 +27,6 @@ function filterCallback(e) {
   refreshDataFromTodos(filter);
 }
 function fillUserData() {
-  console.log(user);
   const incompleted_todos = document.getElementById("items-left");
 
   incompleted_todos.innerText = user.incompletedTodos;
@@ -88,8 +81,6 @@ function removeTodo(todoElement) {
   let todoPosition = findTodoIndex(todoElement.parentNode[TODO_ITEMID]);
   let todo = findTodo(todoElement.parentNode[TODO_ITEMID]);
 
-  console.log(todoElement);
-  console.log(todo);
   if (todo == null) {
     todo = findTodo(todoElement.parentNode.parentNode[TODO_ITEMID]);
     todoPosition = findTodoIndex(
@@ -108,7 +99,6 @@ function clearAllData() {
   const CompletedItems = containerTODOList.querySelectorAll(".checked");
   if (CompletedItems) {
     for (const item of CompletedItems) {
-      console.log(item);
       item.remove();
     }
   }
@@ -150,4 +140,63 @@ function createDeleteButton() {
   return createButton("icon-cross", " btn", " todo_delete", function (event) {
     removeTodo(event.target);
   });
+}
+let movedFrom;
+let movedTo;
+
+function getStartIndex() {
+  let child = document.querySelector(".draggable-source--is-dragging");
+  let parent = child.parentNode;
+  movedFrom = Array.prototype.indexOf.call(parent.children, child);
+}
+function getEndIndex() {
+  let child = document.querySelector(".draggable-source--is-dragging");
+  let parent = child.parentNode;
+  movedTo = Array.prototype.indexOf.call(parent.children, child);
+}
+
+function storeSort() {
+  var moveEle = movedFrom;
+  var moveToIndx = movedTo;
+
+  while (moveEle < 0) {
+    moveEle += todos.length;
+  }
+
+  while (moveToIndx < 0) {
+    moveToIndx = moveToIndx + todos.length;
+  }
+  if (moveToIndx >= todos.length) {
+    var un = moveToIndx - todos.length + 1;
+    while (un--) {
+      todos.push(undefined);
+    }
+  }
+  todos.splice(moveToIndx, 0, todos.splice(moveEle, 1)[0]);
+  updateDataToStorage();
+}
+
+function storeSortFiltered(filter) {
+  var moveEle = movedFrom;
+  var moveToIndx = movedTo;
+
+  let filteredArr = [];
+  let filteredIndex = [];
+  todos.forEach((e, i) => {
+    if (e.isCompleted.toString() === filter) {
+      filteredArr.push(e);
+      filteredIndex.push(i);
+    }
+  });
+  if (moveToIndx >= filteredArr.length) {
+    var un = moveToIndx - filteredArr.length + 1;
+    while (un--) {
+      filteredArr.push(undefined);
+    }
+  }
+  filteredArr.splice(moveToIndx, 0, filteredArr.splice(moveEle, 1)[0]);
+  filteredIndex.forEach((e, index) => {
+    todos.splice(e, 1, filteredArr[index]);
+  });
+  updateDataToStorage();
 }

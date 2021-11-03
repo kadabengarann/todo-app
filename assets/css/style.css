@@ -73,7 +73,7 @@ aside {
   cursor: pointer;
   background-color: transparent;
   border: none;
-  color: #9495a5;
+  color: var(--text2);
   font-size: 0.74em;
   line-height: 1.4rem;
   font-family: inherit;
@@ -185,6 +185,7 @@ main {
   border-right: 1px solid #393a4b; */
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  background-color: var(--card);
 }
 
 .todo_list_container:first-child {
@@ -259,6 +260,7 @@ main {
   border-bottom-right-radius: 5px;
   color: var(--text2);
   font-weight: 400;
+  /* font-size: 0.74em; */
 }
 .filter_container button.btn {
   font-weight: inherit;
@@ -274,8 +276,33 @@ main {
 .filter_center input[type="radio"]:checked + label {
   color: #3a7cfd;
 }
+p.drag {
+  margin-top: 51px;
+  color: var(--text2);
+  font-size: 0.74em;
+  text-align: center;
+}
 footer {
   margin-top: 100px;
+}
+
+.draggable-mirror {
+  /* width: inherit !important; */
+  height: inherit !important;
+  transform: scale(0);
+}
+.draggable:active,
+.draggable:focus {
+  transform: scale(0.5);
+}
+
+/* .draggable-dropzone--occupied {
+  background-color: red;
+} */
+.draggable-source--is-dragging {
+  background-color: whitesmoke;
+  opacity: 0.3;
+  transform: scale(1);
 }
 
 /* --------Responsive stuff--------- */
@@ -374,7 +401,10 @@ footer {
     letter-spacing: 10.5px;
   }
   .btn {
-    font-size: 1em;
+    font-size: inherit;
+  }
+  .filter_center .btn {
+    font-size: 1.2em;
   }
   .btn--theme {
     padding-top: 7px;
@@ -414,5 +444,9 @@ footer {
     font-size: 1em;
     align-items: center;
     box-shadow: 0px 35px 50px -15px rgb(0 0 0 / 20%);
+  }
+  p.drag {
+    font-size: 1.14em;
+    margin-top: 108px;
   }
 }

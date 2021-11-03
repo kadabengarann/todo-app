@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   todoClear.addEventListener("click", function (event) {
-    console.log("hai");
     deleteAllComplete();
   });
 
@@ -50,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("ondatasaved", () => {
-  console.log("Data berhasil disimpan.");
+  console.log("Data saved.");
   loadUserData();
   fillUserData();
 });
@@ -58,4 +57,25 @@ document.addEventListener("ondataloaded", () => {
   refreshDataFromTodos(filter);
   loadUserData();
   fillUserData();
+});
+
+const containers = document.querySelectorAll("#todo-container");
+
+const sortable = new Draggable.Sortable(containers, {
+  draggable: ".todo_item",
+  delay: 300,
+});
+sortable.on("drag:start", () => {
+  getStartIndex();
+});
+sortable.on("drag:move", () => {
+  getEndIndex();
+});
+
+sortable.on("drag:stop", () => {
+  if (filter == "false" || filter == "true") {
+    storeSortFiltered(filter);
+  } else {
+    storeSort();
+  }
 });

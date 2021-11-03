@@ -96,7 +96,6 @@ function refreshDataFromTodos(filter) {
       newTodo[TODO_ITEMID] = todo.id;
       containerTODOList.append(newTodo);
     } else {
-      console.log(filter);
       if (todo.isCompleted.toString() == filter) {
         newTodo = makeTodo(todo.nameTodo, todo.isCompleted);
         newTodo[TODO_ITEMID] = todo.id;
