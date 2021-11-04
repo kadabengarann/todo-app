@@ -122,7 +122,7 @@ function deleteAllComplete() {
   }
 }
 function createButton(icon_name, class1, class2, eventListener) {
-  const button = document.createElement("buton");
+  const button = document.createElement("i");
   button.className += class1 + class2;
   button.innerHTML =
     '<img src="./assets/img/' + icon_name + '.svg" alt="" class="">';

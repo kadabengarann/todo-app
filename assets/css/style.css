@@ -37,7 +37,7 @@ body {
   background-position: top;
   background-size: contain;
   background-color: var(--primary);
-  min-height: 100vh;
+  /* min-height: 100vh; */
   font-size: 1.8rem;
   color: var(--text1);
 }
@@ -66,7 +66,8 @@ aside {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  padding-bottom: 30px;
 }
 .btn {
   cursor: pointer;
@@ -265,15 +266,18 @@ main {
 .filter_center input[type="radio"]:checked + label {
   color: #3a7cfd;
 }
-p.drag {
-  margin-top: 51px;
+footer {
+  /* margin-top: 100px; */
+  padding: 20px;
+}
+.drag-text {
+  margin-top: 1px;
   color: var(--text2);
   font-size: 0.74em;
   text-align: center;
+  margin-bottom: 80px;
 }
-footer {
-  margin-top: 100px;
-}
+
 .todo-ghost {
   opacity: 0.7;
   background-color: var(--text2);
