@@ -22,13 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   darkModeToggle.addEventListener("click", () => {
-    // get their darkMode setting
     darkMode = localStorage.getItem("darkMode");
 
-    // if it not current enabled, enable it
     if (darkMode !== "enabled") {
       enableDarkMode();
-      // if it has been enabled, turn it off
     } else {
       disableDarkMode();
     }
@@ -59,23 +56,19 @@ document.addEventListener("ondataloaded", () => {
   fillUserData();
 });
 
-const containers = document.querySelectorAll("#todo-container");
-
-const sortable = new Draggable.Sortable(containers, {
-  draggable: ".todo_item",
-  delay: 300,
-});
-sortable.on("drag:start", () => {
-  getStartIndex();
-});
-sortable.on("drag:move", () => {
-  getEndIndex();
-});
-
-sortable.on("drag:stop", () => {
-  if (filter == "false" || filter == "true") {
-    storeSortFiltered(filter);
-  } else {
-    storeSort();
-  }
+new Sortable(todo_container, {
+  animation: 150,
+  ghostClass: "todo-ghost",
+  dragClass: "todo-drag",
+  delay: 100,
+  delayOnTouchOnly: true,
+  onUpdate: function (evt) {
+    console.log(evt.oldIndex);
+    console.log(evt.newIndex);
+    if (filter == "false" || filter == "true") {
+      storeSortFiltered(evt.oldIndex, evt.newIndex, filter);
+    } else {
+      storeSort(evt.oldIndex, evt.newIndex);
+    }
+  },
 });

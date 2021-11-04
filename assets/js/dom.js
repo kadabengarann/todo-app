@@ -1,4 +1,4 @@
-const LIST_TODO_ID = "todo-container";
+const LIST_TODO_ID = "todo_container";
 
 const TODO_ITEMID = "itemId";
 
@@ -141,45 +141,26 @@ function createDeleteButton() {
     removeTodo(event.target);
   });
 }
-let movedFrom;
-let movedTo;
 
-function getStartIndex() {
-  let child = document.querySelector(".draggable-source--is-dragging");
-  let parent = child.parentNode;
-  movedFrom = Array.prototype.indexOf.call(parent.children, child);
-}
-function getEndIndex() {
-  let child = document.querySelector(".draggable-source--is-dragging");
-  let parent = child.parentNode;
-  movedTo = Array.prototype.indexOf.call(parent.children, child);
-}
-
-function storeSort() {
-  var moveEle = movedFrom;
-  var moveToIndx = movedTo;
-
-  while (moveEle < 0) {
-    moveEle += todos.length;
+function storeSort(oldIndex, newIndex) {
+  while (oldIndex < 0) {
+    oldIndex += todos.length;
   }
 
-  while (moveToIndx < 0) {
-    moveToIndx = moveToIndx + todos.length;
+  while (newIndex < 0) {
+    newIndex = newIndex + todos.length;
   }
-  if (moveToIndx >= todos.length) {
-    var un = moveToIndx - todos.length + 1;
+  if (newIndex >= todos.length) {
+    var un = newIndex - todos.length + 1;
     while (un--) {
       todos.push(undefined);
     }
   }
-  todos.splice(moveToIndx, 0, todos.splice(moveEle, 1)[0]);
+  todos.splice(newIndex, 0, todos.splice(oldIndex, 1)[0]);
   updateDataToStorage();
 }
 
-function storeSortFiltered(filter) {
-  var moveEle = movedFrom;
-  var moveToIndx = movedTo;
-
+function storeSortFiltered(oldIndex, newIndex, filter) {
   let filteredArr = [];
   let filteredIndex = [];
   todos.forEach((e, i) => {
@@ -188,13 +169,13 @@ function storeSortFiltered(filter) {
       filteredIndex.push(i);
     }
   });
-  if (moveToIndx >= filteredArr.length) {
-    var un = moveToIndx - filteredArr.length + 1;
+  if (newIndex >= filteredArr.length) {
+    var un = newIndex - filteredArr.length + 1;
     while (un--) {
       filteredArr.push(undefined);
     }
   }
-  filteredArr.splice(moveToIndx, 0, filteredArr.splice(moveEle, 1)[0]);
+  filteredArr.splice(newIndex, 0, filteredArr.splice(oldIndex, 1)[0]);
   filteredIndex.forEach((e, index) => {
     todos.splice(e, 1, filteredArr[index]);
   });
